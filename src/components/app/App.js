@@ -12,7 +12,18 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="levelPanel">
-                    <LevelFrame/>
+                    <div className="levelFrameBox">
+                        <div className="levelInfoBox">
+                            <p>current level = {this.props.currentLevel}</p>
+                        </div>
+                        <LevelFrame/>
+                        <div className="levelButtons">
+                            <button>^1 API</button>
+                            <button>^2 TOGGLE WINDOW</button>
+                            <button>^3 RUN</button>
+                            <button>^0 MENU</button>
+                        </div>
+                    </div>
                     <CodeEditor/>
                 </div>
             </div>
@@ -21,7 +32,11 @@ class App extends Component {
 }
 
 const mapStateToProps = store => {
-    return {userCode: store.userCode};
+    return {
+        userCode: store.userCode,
+        currentLevel: store.currentLevel,
+        passLevels: store.passLevels,
+    };
 };
 
 function mapDispatchToProps(dispatch) {

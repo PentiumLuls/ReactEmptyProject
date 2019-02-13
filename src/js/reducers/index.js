@@ -1,7 +1,16 @@
 import {SAVE_USER_CODE} from "../constants/action-types";
 
+if (!localStorage["passLevels"]) {
+    localStorage["passLevels"] = 0;
+}
+if (!localStorage["currentLevel"]) {
+    localStorage["currentLevel"] = 0;
+}
+
 const initialState = {
-    userCode: ""
+    userCode: "",
+    passLevels: +localStorage.passLevels,
+    currentLevel: +localStorage.currentLevel,
 };
 
 function rootReducer(state = initialState, action) {
