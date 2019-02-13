@@ -3,12 +3,18 @@ import AceEditor from 'react-ace';
 
 import 'brace/mode/java';
 import 'brace/theme/terminal';
+import {saveUserCode} from "../../js/actions";
+import {connect} from "react-redux";
 
-export class CodeEditor extends React.Component {
+class CodeEditor extends React.Component {
 
     onChange = (newValue) => {
-
+        this.props.saveUserCode(newValue);
     };
+
+    componentDidMount() {
+        this.props.saveUserCode(this.props.defaultLevelCode);
+    }
 
     render() {
         return (
@@ -17,7 +23,8 @@ export class CodeEditor extends React.Component {
                 theme="terminal"
                 onChange={this.onChange}
                 name="UNIQUE_ID_OF_DIV"
-                defaultValue="DEFAULT CODE"
+                defaultValue={this.props.defaultLevelCode}
+                value={this.props.userCode}
                 editorProps={{$blockScrolling: true}}
                 fontSize='20px'
                 //enableBasicAutocompletion={true}
@@ -40,3 +47,17 @@ export class CodeEditor extends React.Component {
         );
     }
 }
+
+const mapStateToProps = store => {
+    return {
+        userCode: store.userCode,
+    };
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        saveUserCode: newCode => dispatch(saveUserCode(newCode))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
